@@ -251,6 +251,9 @@ function renderMap(){
     }
     if(productRestricted){
       const selectedCats=new Set(selectedProductObjects.map(p=>p.cat));
+      // Для выбранных продуктов с плановой выдачей всегда добавляем
+      // виртуальную категорию «Заказ», чтобы заказ отображался отдельным слоем.
+      if(selectedProductObjects.some(p=>p?.order))selectedCats.add('Заказ');
       return DATA.categories.filter(c=>selectedCats.has(c.name));
     }
     return DATA.categories.slice();
